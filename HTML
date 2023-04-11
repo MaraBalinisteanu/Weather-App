@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Weather App</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="styles.css" />
+    <script type="module" src="script.js"></script>
+  </head>
+  <body>
+    <div class='date-time'> 
+      <div class='date' id='date'>Monday, 3 April</div>
+      <div class='time' id='time'>12:30 <span id="am-pm">PM</span></div>
+      <div class='darkmode'>
+        <img src='https://cdn-icons-png.flaticon.com/512/8215/8215216.png' alt='nightModeIcon' id='moon' class='moon' width="60px" height="60px"/>
+      </div> 
+    </div>
+    <div class="box">
+      <div class="search">
+        <input type='text' placeholder='Type in your region' name=searchbox id='searchbox' />
+        <button id="myBtn"><img src='https://www.freeiconspng.com/uploads/find-icon-9.png' 
+          alt='search_png'/>
+        </button>
+    </div>
+    <div class='error'>
+      <p>Please enter a valid city name</p>
+    </div>
+    <div class="weather">
+      <div class='region'>Iasi</div>
+      <div class='temp'> 20 °C </div>
+      <img src='https://cdn-icons-png.flaticon.com/512/3520/3520675.png' alt='rain_png' class='weather-icon' />
+      <div class="details">
+        <div class="weather-details">
+          <img src='https://cdn-icons-png.flaticon.com/512/9468/9468673.png' alt='humidity' />
+          <div>
+            <p>Humidity %</p>
+            <p class='humidity'>50</p>
+          </div>
+        </div>
+        <div class="weather-details">
+          <img src='https://cdn-icons-png.flaticon.com/512/4623/4623384.png' alt='wind_speed' />
+          <div>
+            <p>Wind Speed km/h</p>
+            <p class='wind'>40 </p>
+          </div>
+        </div>
+        <div class="weather-details">
+          <img src='https://cdn-icons-png.flaticon.com/512/3525/3525808.png' alt='pressure' />
+          <div>
+            <p>Pressure hPa</p>
+            <p class='pressure'>30</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </body>
+</html>

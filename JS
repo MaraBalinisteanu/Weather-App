@@ -1,0 +1,127 @@
+const apiKey = '9d646ac8f3c25a0f38ff343080db38bb';
+const apiUrl = 'https://api.openweathermap.org/data/2.5/weather?&units=metric';
+const searchBox = document.querySelector('.search input');
+const searchButton = document.querySelector('.search button');
+const icon = document.querySelector('.weather-icon');
+// date, temp azi, img temp //
+async function weather(region) {
+  const response = await fetch(apiUrl + '&q=' + region + `&appid=${apiKey}`);
+  // apare-dispare search //
+  if (response.status == 404) {
+    document.querySelector('.error').style.display = 'block';
+    document.querySelector('.weather').style.display = 'none';
+  } else {
+    var data = await response.json();
+
+    document.querySelector('.region').innerHTML = data.name;
+    document.querySelector('.temp').innerHTML =
+      Math.round(data.main.temp) + ' °C';
+    document.querySelector('.humidity').innerHTML = data.main.humidity + ' %';
+    document.querySelector('.wind').innerHTML = data.wind.speed + ' km/h';
+    document.querySelector('.pressure').innerHTML = data.main.pressure + ' hPa';
+
+    if (data.weather[0].main == 'Clouds') {
+      icon.src = 'https://cdn-icons-png.flaticon.com/512/9361/9361560.png';
+    } else if (data.weather[0].main == 'Rain') {
+      icon.src = 'https://cdn-icons-png.flaticon.com/512/3520/3520675.png';
+    } else if (data.weather[0].main == 'Drizzle') {
+      icon.src = 'https://cdn-icons-png.flaticon.com/512/3157/3157542.png';
+    } else if (data.weather[0].main == 'Mist') {
+      icon.src = 'https://cdn-icons-png.flaticon.com/512/4005/4005817.png';
+    } else if (data.weather[0].main == 'Snow') {
+      icon.src = 'https://cdn-icons-png.flaticon.com/512/9112/9112733.png';
+    } else if (data.weather[0].main == 'Clear') {
+      icon.src = 'https://cdn-icons-png.flaticon.com/512/2698/2698194.png';
+    }
+    document.querySelector('.weather').style.display = 'block';
+    document.querySelector('.error').style.display = 'none';
+  }
+}
+searchButton.addEventListener('click', () => {
+  weather(searchBox.value);
+});
+searchButton.addEventListener('click', function handleClick(event) {
+  event.preventDefault();
+  searchBox.value = '';
+});
+
+// ora si zi reale //
+const timeElement = document.getElementById('time');
+const dateElement = document.getElementById('date');
+const days = [
+  'Sunday',
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday',
+];
+const months = [
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec',
+];
+setInterval(() => {
+  const time = new Date();
+  const month = time.getMonth();
+  const date = time.getDate();
+  const day = time.getDay();
+  const hour = time.getHours();
+  const minutes = time.getMinutes();
+  const ampm = hour >= 12 ? ' PM' : ' AM';
+
+  timeElement.innerHTML =
+    hour + ':' + minutes + `<span id="am-pm">${ampm}</span>`;
+  dateElement.innerHTML = days[day] + ', ' + date + ' ' + months[month];
+}, 1000);
+
+// enter submit //
+searchBox.addEventListener('keypress', function (event) {
+  if (event.key === 'Enter') {
+    event.preventDefault();
+    document.getElementById('myBtn').click();
+  }
+});
+
+//dark-theme background//
+const darkModeButton = document.getElementById('moon');
+const moon = document.querySelector('.moon');
+darkModeButton.addEventListener('click', toggleDarkMode);
+
+function toggleDarkMode() {
+  const body = document.querySelector('body');
+  body.classList.toggle('dark');
+  if(document.body.classList.contains('dark')){
+    moon.src='https://cdn-icons-png.flaticon.com/512/4668/4668277.png';
+  } else {
+    moon.src='https://cdn-icons-png.flaticon.com/512/8215/8215216.png';
+  }
+}
+
+// darktheme .box .date-time //
+const box = document.querySelector('.box');
+const dateTime = document.querySelector('.date-time');
+
+moon.addEventListener('click', function() {
+  if (box.style.backgroundColor === 'var(--secondary-color-background)') {
+    box.style.backgroundColor = 'var(--primary-color-background)';
+    dateTime.style.backgroundColor = 'var(--primary-color-background)';
+  } else {
+    box.style.backgroundColor = 'var(--secondary-color-background)';
+    dateTime.style.backgroundColor = 'var(--secondary-color-background)';
+  }
+});
+const body = document.querySelector('body');
+moon.addEventListener('click', function () {
+  body.classList.toggle('dark-mode');
+});
